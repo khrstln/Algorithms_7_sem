@@ -9,6 +9,8 @@
 
 ### 1. Сортировка слиянием
 
+Напишем функцию, осуществляющую сортировку получаемого на вход списка и имеющую сложность не более чем $O\big( n \big)$ по времени.
+
 ```python
 # Функция, осуществляющая слияние двух отсортированных списков
 def Merge(SortedList1, SortedList2):
@@ -29,10 +31,8 @@ def MergeSort(List):
     if len(List) == 1:
         return List
     half = len(List) // 2
-    FirstHalf = List[:half]
-    SecondHalf = List[half:]
-    FirstHalf = MergeSort(FirstHalf)
-    SecondHalf = MergeSort(SecondHalf)
+    FirstHalf = MergeSort(List[:half])
+    SecondHalf = MergeSort(List[half:])
     return Merge(FirstHalf, SecondHalf)
 
 import random
@@ -52,6 +52,8 @@ print()
 Затраты дополнительной памяти = $O\big( n \big)$
 
 ### 2. Сортировка пузырьком
+
+Представим, что мы находимся на уроке физкультуре в очень длинном, но очень узком спортзале. К нашему несчастью, школьники расположились в произвольном порядке. Чтобы построить учеников в порядке возрастания с минимальным использованием дополнительного места, используем сортировку пузырьком.
 
 ```python
 def BubbleSort(List):
