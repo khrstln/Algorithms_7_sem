@@ -33,6 +33,10 @@
 Для решения задачи коммивояжера был реализован метод ```tsp_dp(city, visited, d)```, возвращающий кратчайший путь, 
 проходящий через все города по одному разу и возвращающегося в исходную точку.
 
+<p align="center">
+<img src="https://github.com/khrstln/Algorithms_7_sem/blob/main/Lab%202/images%20of%20cities/my_city.png" alt="Cities" style="width:60%; border:0;">
+</p>
+
 ### Расчет сложности
 
 Временная сложность алгоритма = $O \big(2^n \cdot n^2 \big) $
