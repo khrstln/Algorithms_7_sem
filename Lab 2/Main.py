@@ -9,8 +9,8 @@ for i in range(n):
 for i in range(n):
     for j in range(i + 1, n):
         cts[i, j] = round(((points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2)**0.5, 3)
-cts.draw_graph('images of cities/my_city.png')
-print(cts)
+cts.draw_graph('images of cities/my_cities.png')
+print("Adjacency matrix of the graph:", "", cts, sep="\n")
 
 d = [[float('inf')] * (2**n) for _ in range(n)]
 d[0][0] = 0.0

@@ -76,15 +76,6 @@ class cities():
         ax.collections[0].set_edgecolor("#000000")
         plt.savefig(path)
 
-    # def tsp(self, i: int, mask: int, d: []):
-    #     if d[i][mask] != float('inf'):
-    #         return d[i][mask]
-    #     for j in range(self.num_of_cities):
-    #         if mask & (1 << j) != 0:
-    #             tmp = min(d[j][mask], self.tsp(j, mask - 2**j, d)+ self[i, j])
-    #             d[i][mask] = tmp
-    #     return d[i][mask]
-
     def tsp_dp(self, city, visited, d):
         if visited == (1 << self.num_of_cities) - 1:
             return self[city, 0]
