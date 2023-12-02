@@ -87,9 +87,7 @@ class Simulator:
             if len(road.vehicles) == 0: continue
             # If not
             vehicle = road.vehicles[0]
-            # If the first vehicle is out of road bounds
             if vehicle.x >= road.length:
-                # if vehicle just wanders:
                 if len(vehicle.path) == 1:
                     vehicle.currentRoadIndex = 1
                     newVehicle = deepcopy(vehicle)
@@ -98,7 +96,7 @@ class Simulator:
                     if len(crossRoad[1]) > 1:
                         if newVehicle.decideToRide():
                             carNums = [len(self.roads[(road.endCross, k)].vehicles) for k in crossRoad[1]]
-                            minNum = np.min(carNums)
+                            minNum = min(carNums)
                             minIdx = [i for i, x in enumerate(carNums) if x == minNum]
                             nextCross = crossRoad[1][random.choice(minIdx)]
                             self.roads[(road.endCross, nextCross)].vehicles.append(newVehicle)
