@@ -180,23 +180,31 @@ class Window:
         red_text = (200, 0, 0)
         yellow_text = (210, 210, 0)
         green_text = (0, 150, 0)
+        self.the_text('Top-3 roads with the highest traffic:', x, y_i)
+        y_i += 20
+        load_top = []
         for key, road in self.simulator.roads.items():
             load = round(self.simulator.loads[key].getLoad())
             num_of_vehicles = len(road.vehicles)
             if load > 0:
-                if load <= 50:
-                    self.the_text(
-                        f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, green_text)
+                if load <= high_load:
+                    load_top.append([load, f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', green_text])
+                    # self.the_text(
+                    #     f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, green_text)
                 elif 50 < load < 90:
-                    self.the_text(
-                        f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, yellow_text)
+                    load_top.append([load, f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', yellow_text])
+                    # self.the_text(
+                    #     f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, yellow_text)
                 else:
                     if load > 100:
-                        self.the_text(
-                            f'{road.startCross, road.endCross}: {num_of_vehicles}, 100 %', x, y_i, red_text)
+                        load_top.append([load, f'{road.startCross, road.endCross}: {num_of_vehicles}, 100 %', red_text])
+                        # self.the_text(
+                        #     f'{road.startCross, road.endCross}: {num_of_vehicles}, 100 %', x, y_i, red_text)
                     else:
-                        self.the_text(
-                            f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, red_text)
+                        load_top.append([load, f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', red_text])
+                        # self.the_text(
+                        #     f'{road.startCross, road.endCross}: {num_of_vehicles}, {load} %', x, y_i, red_text)
+
 
                 if road.hasTrafficSignal and load >= high_load:
                     car = road.vehicles[-1]
@@ -205,19 +213,23 @@ class Window:
                     else:
                         additionalTime = 0
                     timeToDissolve = round((road.length - car.x) / car.vMax + additionalTime, 1)
-                    self.the_text('dissolving in: ' + str(timeToDissolve), x + 180, y_i)
+                    load_top[-1][1] += '; dissolving in: ' + str(timeToDissolve)
+                    # self.the_text('dissolving in: ' + str(timeToDissolve), x + 180, y_i)
                     if load >= 90:
                         duration = round(self.simulator.loads[key].getDurationOver90(self.simulator.t), 1)
-                        self.the_text('duration: ' + str(duration), x + 380, y_i)
+                        load_top[-1][1] += '; duration: ' + str(duration)
+                        # self.the_text('duration: ' + str(duration), x + 380, y_i)
+
+        load_top.sort(key=lambda x: x[0], reverse=True)
+        if len(load_top) > 0:
+            for i in range(min(len(load_top), 3)):
+                self.the_text(f'{i + 1}. {load_top[i][1]}', x, y_i, load_top[i][-1])
                 y_i += 20
 
     def drawStatus(self):
         """Drawing status text"""
         self.drawTime()
         self.drawLoad(20, 60)
-
-
-
 
 
 
