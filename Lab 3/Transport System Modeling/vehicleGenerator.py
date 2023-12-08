@@ -15,7 +15,7 @@ class VehicleGenerators:
         self.initProperties()
 
     def set_default_config(self):
-        self.vehicleRate = 30
+        self.vehicleRate = 50
         self.vehicles = [
             (1, {})
         ]
