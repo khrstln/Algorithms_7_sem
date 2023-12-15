@@ -29,6 +29,7 @@ class Simulator:
         self.vehicleGens = deque()
         self.trafficSignals = deque()
         self.loads = {}
+        self.optimizer = True
 
 
     def createLoads(self):
@@ -98,7 +99,10 @@ class Simulator:
                             carNums = [len(self.roads[(road.endCross, k)].vehicles) for k in crossRoad[1]]
                             minNum = min(carNums)
                             minIdx = [i for i, x in enumerate(carNums) if x == minNum]
-                            nextCross = crossRoad[1][random.choice(minIdx)]
+                            if self.optimizer:
+                                nextCross = crossRoad[1][random.choice(minIdx)]
+                            else:
+                                nextCross = crossRoad[1][random.choice([i for i in range(len(crossRoad[1]))])]
                             self.roads[(road.endCross, nextCross)].vehicles.append(newVehicle)
                         else:
                             pass
